@@ -1,0 +1,34 @@
+﻿@page
+@model AkinatorWeb.Pages.HomeModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<h2>Привет, @Model.Username!</h2>
+
+<form method="get" asp-page="/Game">
+    <button type="submit" class="btn btn-primary">Начать игру</button>
+</form>
+
+<hr />
+
+<hr />
+<form method="get" asp-page="/Stats">
+    <button type="submit" class="btn btn-secondary">Посмотреть статистику</button>
+</form>
+
+<h3>Ваши предыдущие сессии</h3>
+
+@if (Model.PreviousCharacters.Count == 0)
+{
+        <p>Вы ещё никого не загадывали. Пора это исправить!</p>
+}
+else
+{
+        <ul>
+        @foreach (var character in Model.PreviousCharacters)
+        {
+                    <li> @character</li>
+        }
+        </ul>
+}

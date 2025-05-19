@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Nn59RfHoiUKPCGfqBiDrIDvfhNIdaKsQQnsqNTzCTrVVdp2A6RQJ/6Siey0ueyf/7ebhcSdXMgbTLACg073TWw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\admin\\OneDrive\\Рабочий стол\\прога\\AkinatorWeb\\AkinatorWeb.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\stub.system.data.sqlite.core.netstandard\\1.0.119\\stub.system.data.sqlite.core.netstandard.1.0.119.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\system.data.sqlite.core\\1.0.119\\system.data.sqlite.core.1.0.119.nupkg.sha512"
+  ],
+  "logs": []
+}

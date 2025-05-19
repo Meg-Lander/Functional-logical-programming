@@ -1,0 +1,28 @@
+﻿@page
+@model AkinatorWeb.Pages.GameModel
+@{
+    ViewData["Title"] = "Игра Акинатор";
+}
+
+<h2>Играем в Акинатор</h2>
+
+@if (Model.Finished)
+{
+        <h3>Результат:</h3>
+        <p>@Model.FinalResult</p>
+        <a asp-page="/Home">⏪ Вернуться на главную</a>
+
+}
+else
+{
+        <p>@Model.CurrentQuestionText</p>
+
+        <form method="post">
+            <input type="hidden" name="Answer" value="да" />
+            <button type="submit">Да</button>
+        </form>
+        <form method="post">
+            <input type="hidden" name="Answer" value="нет" />
+            <button type="submit">Нет</button>
+        </form>
+}
