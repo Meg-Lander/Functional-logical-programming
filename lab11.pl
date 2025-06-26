@@ -30,3 +30,15 @@ arrangements_norep(List, K, [H|Arr]) :-
 % Перестановки
 permutation([], []).
 permutation(List, [H|Perm]) :- select(H, List, Rest), permutation(Rest, Perm).
+
+% Задание 4 : Генерация в файл
+
+% Записать размещения без повторений в файл
+write_arrangements_norep_to_file(List, K, File) :-
+    tell(File), write('Размещения без повторений из '), write(List), write(' по '), write(K), write(':'), nl,
+    forall(arrangements_norep(List, K, Arr), (write(Arr), nl)), told.
+
+% Записать перестановки в файл
+write_permutations_to_file(List, File) :-
+    tell(File), write('Перестановки списка '), write(List), write(':'), nl,
+    forall(permutation(List, Perm), (write(Perm), nl)), told.
