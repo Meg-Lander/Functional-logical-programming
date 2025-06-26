@@ -67,3 +67,38 @@ task3_25_read(List, A, B) :- read_list(List), write('a: '), read(A), write('b: '
 task3_25_logic(List, A, B, MaxInInterval) :- findall(X, (member(X, List), X >= A, X =< B), Elements), (Elements = [] -> MaxInInterval = 'нет элементов' ; max_list(Elements, MaxInInterval)).
 task3_25_write(MaxInInterval) :- write('Макс в интервале: '), write(MaxInInterval), nl.
 task3_25 :- task3_25_read(List, A, B), task3_25_logic(List, A, B, MaxInInterval), task3_25_write(MaxInInterval).
+
+% Задание 4
+logical_task4_variant1 :-
+    Names = [belokurov, ryzhov, chernov], Colors = [blond, brunet, red],
+    permutation(Colors, [ColorB, ColorR, ColorC]),
+    ColorB \= blond, ColorR \= red, ColorC \= brunet,
+    ColorB \= brunet,
+    ColorB = red,
+    ColorR = brunet, ColorC = blond,
+    write('Задание 4 (Вариант 1) Решение:'), nl,
+    write('Белокуров: '), write(ColorB), nl, write('Рыжов: '), write(ColorR), nl, write('Чернов: '), write(ColorC), nl.
+
+permutation([], []).
+permutation([H|T], Perm) :- permutation(T, PermT), select(H, Perm, PermT).
+
+% Задание 5
+is_prime(2). is_prime(3). is_prime(P) :- integer(P), P > 3, P mod 2 =\= 0, \+ has_factor(P, 3).
+has_factor(N, K) :- K * K =< N, (N mod K =:= 0 ; K2 is K + 2, has_factor(N, K2)).
+
+find_divisors(Number, Divisors) :- findall(D, (between(1, Number, D), Number mod D =:= 0), Divisors).
+
+sum_prime_divisors(Number, Sum) :- find_divisors(Number, Divisors), include(is_prime, Divisors, PrimeDivisors), sum_list_up(PrimeDivisors, Sum).
+
+product_list([], 1).
+product_list([H|T], Product) :- product_list(T, ProdT), Product is H * ProdT.
+
+product_divisors_conditional(Number, Product) :-
+    sum_digits_up(Number, SumOrig),
+    findall(D, (between(1, Number, D), Number mod D =:= 0, sum_digits_up(D, SumD), SumD < SumOrig), ConditionalDivisors),
+    product_list(ConditionalDivisors, Product).
+
+task5_variant1_read(Number) :- write('Число: '), read(Number).
+task5_variant1_logic(Number, SumPD, ProdCD) :- sum_prime_divisors(Number, SumPD), product_divisors_conditional(Number, ProdCD).
+task5_variant1_write(SumPD, ProdCD) :- write('1. Сумма простых делителей: '), write(SumPD), nl, write('2. Произведение делителей по условию: '), write(ProdCD), nl.
+task5_variant1 :- task5_variant1_read(Number), task5_variant1_logic(Number, SumPD, ProdCD), task5_variant1_write(SumPD, ProdCD).
