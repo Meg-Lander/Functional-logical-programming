@@ -51,3 +51,19 @@ count_odd_digits_greater_than_3_up_helper(N, Acc, Count) :- N > 0, Digit is N mo
 
 gcd(0, B, B) :- B >= 0.
 gcd(A, B, G) :- A > 0, R is B mod A, gcd(R, A, G).
+
+% Задание 3 (1.1, 1.13, 1.25)
+task3_1_read(List) :- read_list(List).
+task3_1_logic(List, Count) :- max_list(List, Max), findall(Index, nth0(Index, List, Max), MaxIndices), last(MaxIndices, LastMaxIndex), length(List, Length), Count is Length - 1 - LastMaxIndex.
+task3_1_write(Count) :- write('Количество элементов после последнего макс: '), write(Count), nl.
+task3_1 :- task3_1_read(List), task3_1_logic(List, Count), task3_1_write(Count).
+
+task3_13_read(List) :- read_list(List).
+task3_13_logic(List, NewList) :- min_list(List, Min), nth0(MinPos, List, Min), length(Prefix, MinPos), append(Prefix, Rest, List), append(Rest, Prefix, NewList).
+task3_13_write(NewList) :- write('Список после перемещения: '), print_list(NewList).
+task3_13 :- task3_13_read(List), task3_13_logic(List, NewList), task3_13_write(NewList).
+
+task3_25_read(List, A, B) :- read_list(List), write('a: '), read(A), write('b: '), read(B).
+task3_25_logic(List, A, B, MaxInInterval) :- findall(X, (member(X, List), X >= A, X =< B), Elements), (Elements = [] -> MaxInInterval = 'нет элементов' ; max_list(Elements, MaxInInterval)).
+task3_25_write(MaxInInterval) :- write('Макс в интервале: '), write(MaxInInterval), nl.
+task3_25 :- task3_25_read(List, A, B), task3_25_logic(List, A, B, MaxInInterval), task3_25_write(MaxInInterval).
