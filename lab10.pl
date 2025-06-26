@@ -76,7 +76,7 @@ logical_task4_variant1 :-
     ColorB \= brunet,
     ColorB = red,
     ColorR = brunet, ColorC = blond,
-    write('Задание 4 (Вариант 1) Решение:'), nl,
+    write('Задание 4 Решение:'), nl,
     write('Белокуров: '), write(ColorB), nl, write('Рыжов: '), write(ColorR), nl, write('Чернов: '), write(ColorC), nl.
 
 permutation([], []).
@@ -140,7 +140,7 @@ logical_task7_variant1 :-
     member(astronom, [ProfA, ProfB, ProfK, ProfD]), member(poet, [ProfA, ProfB, ProfK, ProfD]),
     member(prosaic, [ProfA, ProfB, ProfK, ProfD]), member(dramatist, [ProfA, ProfB, ProfK, ProfD]),
 
-    write('Задание 7 (Вариант 1) Решение:'), nl,
+    write('Задание 7 Решение:'), nl,
     write('Профессии:'), nl,
     write('Алексеев: '), write(ProfA), nl, write('Борисов: '), write(ProfB), nl,
     write('Константинов: '), write(ProfK), nl, write('Дмитриев: '), write(ProfD), nl,
