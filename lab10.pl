@@ -102,3 +102,58 @@ task5_variant1_read(Number) :- write('Число: '), read(Number).
 task5_variant1_logic(Number, SumPD, ProdCD) :- sum_prime_divisors(Number, SumPD), product_divisors_conditional(Number, ProdCD).
 task5_variant1_write(SumPD, ProdCD) :- write('1. Сумма простых делителей: '), write(SumPD), nl, write('2. Произведение делителей по условию: '), write(ProdCD), nl.
 task5_variant1 :- task5_variant1_read(Number), task5_variant1_logic(Number, SumPD, ProdCD), task5_variant1_write(SumPD, ProdCD).
+
+% Задание 6 (1.37, 1.49)
+task6_37_read(List) :- read_list(List).
+task6_37_logic([_], [], 0).
+task6_37_logic([H1, H2|T], Indices, Count) :-
+    task6_37_logic([H2|T], RestIndices, RestCount), length([H2|T], RestLength), CurrentIndex is RestLength,
+    (H2 < H1 -> Count is RestCount + 1, Indices = [CurrentIndex | RestIndices] ; Count is RestCount, Indices = RestIndices).
+
+task6_37_write(Indices, Count) :- write('Индексы < левого соседа: '), write(Indices), nl, write('Количество: '), write(Count), nl.
+task6_37 :- task6_37_read(List), task6_37_logic(List, Indices, Count), task6_37_write(Indices, Count).
+
+prime_divisors(Number, Divisors) :- (Number =< 1 -> Divisors = [] ; find_prime_divisors_helper(Number, 2, Divisors)).
+find_prime_divisors_helper(1, _, []).
+find_prime_divisors_helper(N, D, [D|Rest]) :- is_prime(D), N mod D =:= 0, N1 is N // D, find_prime_divisors_helper(N1, D, Rest).
+find_prime_divisors_helper(N, D, Divisors) :- is_prime(D), N mod D =\= 0, D1 is D + 1, find_prime_divisors_helper(N, D1, Divisors).
+find_prime_divisors_helper(N, D, Divisors) :- \+ is_prime(D), D1 is D + 1, find_prime_divisors_helper(N, D1, Divisors).
+
+task6_49_read(List) :- read_list(List).
+task6_49_logic(List, UniquePrimeDivisors) :- findall(PD, (member(Number, List), prime_divisors(Number, PDList), member(PD, PDList)), AllPrimeDivisors), sort(AllPrimeDivisors, UniquePrimeDivisors).
+task6_49_write(UniquePrimeDivisors) :- write('Уникальные простые делители списка: '), write(UniquePrimeDivisors), nl.
+task6_49 :- task6_49_read(List), task6_49_logic(List, UniquePrimeDivisors), task6_49_write(UniquePrimeDivisors).
+
+% Задание 7
+logical_task7_variant1 :-
+    Profession = [astronom, poet, prosaic, dramatist], Names = [alekseev, borisov, konstantinov, dmitriev],
+    permutation(Profession, [ProfA, ProfB, ProfK, ProfD]),
+    permutation(Names, [AuthorA, AuthorB, AuthorK, AuthorD]),
+    AuthorA \= alekseev, AuthorB \= borisov, AuthorK \= konstantinov, AuthorD \= dmitriev,
+    AuthorA = borisov, AuthorB = alekseev, AuthorK = dmitriev, AuthorD = konstantinov,
+
+    Name_Prof(alekseev, ProfA), Name_Prof(borisov, ProfB), Name_Prof(konstantinov, ProfK), Name_Prof(dmitriev, ProfD),
+
+    ((ProfA = poet, ProfB = dramatist) ; (ProfB = poet, ProfA = dramatist) ; (ProfK = poet, ProfD = dramatist) ; (ProfD = poet, ProfK = dramatist)),
+    \+ (ProfA = prosaic, ProfB = astronom), \+ (ProfB = prosaic, ProfA = astronom), \+ (ProfK = prosaic, ProfD = astronom), \+ (ProfD = prosaic, ProfK = astronom),
+
+    member(astronom, [ProfA, ProfB, ProfK, ProfD]), member(poet, [ProfA, ProfB, ProfK, ProfD]),
+    member(prosaic, [ProfA, ProfB, ProfK, ProfD]), member(dramatist, [ProfA, ProfB, ProfK, ProfD]),
+
+    write('Задание 7 (Вариант 1) Решение:'), nl,
+    write('Профессии:'), nl,
+    write('Алексеев: '), write(ProfA), nl, write('Борисов: '), write(ProfB), nl,
+    write('Константинов: '), write(ProfK), nl, write('Дмитриев: '), write(ProfD), nl,
+    write('Что читал каждый:'), nl,
+    Name_Prof_output(AuthorA, ProfAuthorA, ProfA, ProfB, ProfK, ProfD), write('Алексеев читал книгу '), write(AuthorA), write(' ('), write(ProfAuthorA), write(')'), nl,
+    Name_Prof_output(AuthorB, ProfAuthorB, ProfA, ProfB, ProfK, ProfD), write('Борисов читал книгу '), write(AuthorB), write(' ('), write(ProfAuthorB), write(')'), nl,
+    Name_Prof_output(AuthorK, ProfAuthorK, ProfA, ProfB, ProfK, ProfD), write('Константинов читал книгу '), write(AuthorK), write(' ('), write(ProfAuthorK), write(')'), nl,
+    Name_Prof_output(AuthorD, ProfAuthorD, ProfA, ProfB, ProfK, ProfD), write('Дмитриев читал книгу '), write(AuthorD), write(' ('), write(ProfAuthorD), write(')'), nl.
+
+Name_Prof(alekseev, ProfA) :- var(ProfA), logical_task7_variant1.
+Name_Prof(borisov, ProfB) :- var(ProfB), logical_task7_variant1.
+Name_Prof(konstantinov, ProfK) :- var(ProfK), logical_task7_variant1.
+Name_Prof(dmitriev, ProfD) :- var(ProfD), logical_task7_variant1.
+Name_Prof_output(Name, Prof, ProfA, ProfB, ProfK, ProfD) :-
+    (Name = alekseev -> Prof = ProfA); (Name = borisov -> Prof = ProfB);
+    (Name = konstantinov -> Prof = ProfK); (Name = dmitriev -> Prof = ProfD).
