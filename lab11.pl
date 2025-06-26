@@ -42,3 +42,47 @@ write_arrangements_norep_to_file(List, K, File) :-
 write_permutations_to_file(List, File) :-
     tell(File), write('Перестановки списка '), write(List), write(':'), nl,
     forall(permutation(List, Perm), (write(Perm), nl)), told.
+
+% Задание 5: Остовное дерево (неориентированный связный граф)
+
+% Пример неориентированного графа: u_edge(Узел1, Узел2). Ребро в обе стороны.
+% u_edge(a, b). u_edge(b, a).
+% u_edge(a, c). u_edge(c, a).
+% u_edge(b, d). u_edge(d, b).
+% u_edge(c, d). u_edge(d, c).
+% u_edge(d, e). u_edge(e, d).
+
+% Построение остовного дерева (BFS обход)
+spanning_tree(StartNode, TreeEdges) :-
+    spanning_tree_bfs([StartNode], [StartNode], [], TreeEdges).
+
+spanning_tree_bfs([], _, Edges, Edges).
+spanning_tree_bfs([Node|Queue], Visited, CurrentEdges, TreeEdges) :-
+    findall(Neighbor, (u_edge(Node, Neighbor), \+ member(Neighbor, Visited)), NewNeighbors),
+    append(Visited, NewNeighbors, NewVisited),
+    findall(edge(Node, Neighbor), member(Neighbor, NewNeighbors), NewEdges),
+    append(CurrentEdges, NewEdges, UpdatedEdges),
+    append(Queue, NewNeighbors, NextQueue),
+    spanning_tree_bfs(NextQueue, NewVisited, UpdatedEdges, TreeEdges).
+
+% Задание 6: Обход в глубину ориентированный граф
+
+% Пример ориентированного графа: d_edge(От, К).
+% d_edge(1, 2).
+% d_edge(1, 3).
+% d_edge(2, 4).
+% d_3(4, 1). % Цикл
+
+% Обход в глубину
+dfs(StartNode, Path) :-
+    dfs_helper(StartNode, [StartNode], Path).
+
+dfs_helper(Node, Visited, [Node|Path]) :-
+    findall(Neighbor, (d_edge(Node, Neighbor), \+ member(Neighbor, Visited)), UnvisitedNeighbors),
+    dfs_neighbors(UnvisitedNeighbors, [Node|Visited], Path).
+
+dfs_neighbors([], _, []).
+dfs_neighbors([Neighbor|Rest], Visited, Path) :-
+    dfs_helper(Neighbor, Visited, PathSegment),
+    dfs_neighbors(Rest, Visited, RestPath),
+    append(PathSegment, RestPath, Path).
