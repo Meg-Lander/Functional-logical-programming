@@ -20,3 +20,13 @@ words_k_3a_helper(Alphabet, K, CountA, [H|T]) :-
     (H = a -> CountA1 is CountA - 1 ; CountA1 is CountA),
     CountA1 >= 0, words_k_3a_helper(Alphabet, K1, CountA1, T).
 
+% Задание 2 : Размещения без повторений, перестановки
+
+% Размещения без повторений
+arrangements_norep([], _, []).
+arrangements_norep(List, K, [H|Arr]) :-
+    K > 0, select(H, List, Rest), K1 is K - 1, arrangements_norep(Rest, K1, Arr).
+
+% Перестановки
+permutation([], []).
+permutation(List, [H|Perm]) :- select(H, List, Rest), permutation(Rest, Perm).
