@@ -54,6 +54,15 @@ let rec processDigits num func acc =
     | 0 -> acc
     | _ -> processDigits (num / 10) func (func acc (num % 10))
 
+// Задание 9 — Обход цифр по условию
+let rec processDigitsIf num func acc predicate =
+    match num with
+    | 0 -> acc
+    | _ ->
+        let digit = num % 10
+        let next = if predicate digit then func acc digit else acc
+        processDigitsIf (num / 10) func next predicate
+
 [<EntryPoint>]
 let main _ =
     helloWorld
@@ -87,4 +96,8 @@ let main _ =
     printfn $"Обход произведения: {processDigits 12345 (fun a b -> a * b) 1}"
     printfn $"Минимум цифр: {processDigits 12345 min 9}"
     printfn $"Максимум цифр: {processDigits 12345 max 0}"
+
+    printfn $"Сумма чётных цифр: {processDigitsIf 123456 (+) 0 (fun x -> x % 2 = 0)}"
+    printfn $"Произведение нечётных: {processDigitsIf 13579 (*) 1 (fun x -> x % 2 <> 0)}"
+    printfn $"Максимум > 5: {processDigitsIf 987654321 max 0 (fun x -> x > 5)}"
     0
