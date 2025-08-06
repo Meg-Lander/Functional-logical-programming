@@ -28,6 +28,15 @@ let rec sumDigitsUp n =
     | x when x < 10 -> x
     | _ -> (n % 10) + sumDigitsUp (n / 10)
 
+
+// Задание 5 — Сумма цифр (рекурсия вниз и хвоставая)
+let rec sumDigitsDown n acc =
+    match n with
+    | 0 -> acc
+    | _ -> sumDigitsDown (n / 10) (acc + (n % 10))
+
+let sumDigitsTail n = sumDigitsDown n 0
+
 [<EntryPoint>]
 let main _ =
     helloWorld
@@ -46,8 +55,9 @@ let main _ =
     printfn $"Объём цилиндра: {volume}"
 
     
-    let number = 12345
-    let sum = sumDigitsUp number
-
-    printfn $"Сумма цифр (вверх): {sum}"
+    let num = 12345
+    let sumUp = sumDigitsUp num
+    let sumTail = sumDigitsTail num
+    printfn $"Сумма цифр вверх: {sumUp}"
+    printfn $"Сумма цифр вниз: {sumTail}"
     0
