@@ -22,6 +22,12 @@ let solveQuadratic a b c =
 let circleArea r = 3.14 * r * r
 let cylinderVolume h = circleArea >> (*) h
 
+// Задание 4 — Сумма цифр (рекурсия вверх)
+let rec sumDigitsUp n =
+    match n with
+    | x when x < 10 -> x
+    | _ -> (n % 10) + sumDigitsUp (n / 10)
+
 [<EntryPoint>]
 let main _ =
     helloWorld
@@ -38,4 +44,10 @@ let main _ =
 
     printfn $"Площадь круга: {area}"
     printfn $"Объём цилиндра: {volume}"
+
+    
+    let number = 12345
+    let sum = sumDigitsUp number
+
+    printfn $"Сумма цифр (вверх): {sum}"
     0
