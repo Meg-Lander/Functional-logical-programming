@@ -37,6 +37,18 @@ let rec sumDigitsDown n acc =
 
 let sumDigitsTail n = sumDigitsDown n 0
 
+// Задание 6 — Функция, возвращающая функцию
+let getOperation flag =
+    match flag with
+    | true -> sumDigitsTail
+    | false ->
+        let rec factorial n =
+            match n with
+            | 0 -> 1
+            | _ -> n * factorial (n - 1)
+        factorial
+
+
 [<EntryPoint>]
 let main _ =
     helloWorld
@@ -60,4 +72,9 @@ let main _ =
     let sumTail = sumDigitsTail num
     printfn $"Сумма цифр вверх: {sumUp}"
     printfn $"Сумма цифр вниз: {sumTail}"
+
+    let f1 = getOperation true
+    let f2 = getOperation false
+    printfn $"Функция по условию (true): {f1 4321}"
+    printfn $"Функция по условию (false): {f2 5}"
     0
