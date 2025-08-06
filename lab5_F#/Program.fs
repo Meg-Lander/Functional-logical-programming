@@ -48,6 +48,11 @@ let getOperation flag =
             | _ -> n * factorial (n - 1)
         factorial
 
+// Задание 7 — обход цифр
+let rec processDigits num func acc =
+    match num with
+    | 0 -> acc
+    | _ -> processDigits (num / 10) func (func acc (num % 10))
 
 [<EntryPoint>]
 let main _ =
@@ -77,4 +82,9 @@ let main _ =
     let f2 = getOperation false
     printfn $"Функция по условию (true): {f1 4321}"
     printfn $"Функция по условию (false): {f2 5}"
+
+    printfn $"Обход суммы: {processDigits 12345 (fun a b -> a + b) 0}"
+    printfn $"Обход произведения: {processDigits 12345 (fun a b -> a * b) 1}"
+    printfn $"Минимум цифр: {processDigits 12345 min 9}"
+    printfn $"Максимум цифр: {processDigits 12345 max 0}"
     0
