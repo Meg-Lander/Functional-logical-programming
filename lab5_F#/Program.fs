@@ -18,11 +18,24 @@ let solveQuadratic a b c =
         Some (x, x)
     | _ -> None
 
+// Задание 3 — Площадь круга и объём цилиндра
+let circleArea r = 3.14 * r * r
+let cylinderVolume h = circleArea >> (*) h
 
 [<EntryPoint>]
 let main _ =
     helloWorld
+
     match solveQuadratic 1 2 1 with
     | Some (r1, r2) -> printfn $"Корни : {r1}, {r2}"
     | None -> printfn "Корней нет"
+
+    let radius = 3.0
+    let height = 5.0
+
+    let area = circleArea radius
+    let volume = cylinderVolume height radius
+
+    printfn $"Площадь круга: {area}"
+    printfn $"Объём цилиндра: {volume}"
     0
