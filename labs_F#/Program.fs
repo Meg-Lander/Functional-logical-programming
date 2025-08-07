@@ -111,5 +111,9 @@ let eulerNumber n =
          let sumPrimes = WorkWithDigits.sumPrimeDivisors n
          Console.WriteLine("Сумма простых делителей числа {0}: {1}", n, sumPrimes)
 
+         let countOddDigits = WorkWithDigits.countOddDigitsGreaterThanThree number
+         Console.WriteLine("Количество нечётных цифр > 3: {0}", countOddDigits)
+
+
 
          0

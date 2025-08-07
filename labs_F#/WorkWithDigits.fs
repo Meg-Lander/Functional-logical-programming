@@ -74,3 +74,15 @@ module WorkWithDigits
                 | (true, true) -> loop (i + 1) (acc + i)
                 | _ -> loop (i + 1) acc
         loop 1 0
+
+    let countOddDigitsGreaterThanThree number =
+    let rec count num acc =
+        match num with
+        | 0 -> acc
+        | _ ->
+            let digit = num % 10
+            let rest = num / 10
+            match (digit % 2, digit > 3) with
+            | (1, true) -> count rest (acc + 1)
+            | _ -> count rest acc
+    count number 0
