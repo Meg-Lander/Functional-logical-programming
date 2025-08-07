@@ -1,4 +1,9 @@
-﻿[<EntryPoint>]
+﻿let respondToLanguage (language: string) =
+    match language.ToLower() with
+    | "f#" | "prolog" -> "Ты подлиза!"
+    | _ -> "Неплохой выбор, но F# и Prolog лучше!"
+
+[<EntryPoint>]
      let main argv =
          let number = 12345
          
@@ -41,5 +46,17 @@
 
          let minDigit = operation_on_digits_numbers_with_condition (number) (min_function) (9) (fun x -> x > 2)
          System.Console.WriteLine("Минимальная цифра больше 2: {0}", minDigit)
+
+
+
+         Console.WriteLine("Какой твой любимый язык программирования?")
+         Console.ReadLine() |> respondToLanguage |> Console.WriteLine
+
+
+        let getResponse = respondToLanguage 
+        Console.WriteLine("Какой твой любимый язык программирования?")
+        let userLanguage = Console.ReadLine()
+        let response = getResponse(userLanguage)
+        Console.WriteLine(response)
 
          0
