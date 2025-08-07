@@ -17,6 +17,9 @@ let obhodProstComp number operation initial =
                 oper (num + 1) acc
     oper 1 initial
 
+let eulerNumber n =
+    obhodProstComp n (fun acc _ -> acc + 1) 0
+
 [<EntryPoint>]
      let main argv =
          let number = 12345
@@ -83,5 +86,9 @@ let obhodProstComp number operation initial =
 
          let minCoprime = obhodProstComp (n) (min_function) (n)
          Console.WriteLine("Минимум среди взаимно простых чисел: {0}", minCoprime)
+
+
+         let NumbEuler = eulerNumber n
+         Console.WriteLine("Число Эйлера: {0}", NumbEuler)
 
          0
