@@ -103,4 +103,31 @@ module WorkWithDigits
                 | false -> loop (i + 1) acc
         loop 1 1
 
+    let rec nod a b =
+        if b = 0 then a
+        else nod b (a % b)
+
+    let obhodProstComp number operation initial =
+        let rec oper num acc =
+            if num >= number then acc
+            else
+                if nod num number = 1 then
+                    oper (num + 1) (operation acc num)
+                else
+                    oper (num + 1) acc
+        oper 1 initial
+
+    let obhodProstCompWithCondition number operation initial condition =
+        let rec oper num acc =
+            if num >= number then acc
+            else
+                if nod num number = 1 && condition num then
+                    oper (num + 1) (operation acc num)
+                else
+                    oper (num + 1) acc
+        oper 1 initial
+
+    let eulerNumber n =
+        obhodProstComp n (fun acc _ -> acc + 1) 0
+
 

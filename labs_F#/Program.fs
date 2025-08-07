@@ -3,33 +3,6 @@
     | "f#" | "prolog" -> "Ты подлиза!"
     | _ -> "Неплохой выбор, но F# и Prolog лучше!"
 
-let rec nod a b =
-    if b = 0 then a
-    else nod b (a % b)
-
-let obhodProstComp number operation initial =
-    let rec oper num acc =
-        if num >= number then acc
-        else
-            if nod num number = 1 then
-                oper (num + 1) (operation acc num)
-            else
-                oper (num + 1) acc
-    oper 1 initial
-
-let obhodProstCompWithCondition number operation initial condition =
-    let rec oper num acc =
-        if num >= number then acc
-        else
-            if nod num number = 1 && condition num then
-                oper (num + 1) (operation acc num)
-            else
-                oper (num + 1) acc
-    oper 1 initial
-
-let eulerNumber n =
-    obhodProstComp n (fun acc _ -> acc + 1) 0
-
 [<EntryPoint>]
      let main argv =
          let number = 12345
@@ -65,13 +38,13 @@ let eulerNumber n =
 
 
 
-         let sumEvenDigits = operation_on_digits_numbers_with_condition (number) (sum_function) (0) (fun x -> x % 2 = 0)
+         let sumEvenDigits = WorkWithDigits.operation_on_digits_numbers_with_condition (number) (sum_function) (0) (fun x -> x % 2 = 0)
          System.Console.WriteLine("Сумма четных цифр числа: {0}", sumEvenDigits)
 
-         let proizDigits = operation_on_digits_numbers_with_condition (number) (proiz_function) (1) (fun x -> x > 5)
+         let proizDigits = WorkWithDigits.operation_on_digits_numbers_with_condition (number) (proiz_function) (1) (fun x -> x > 5)
          System.Console.WriteLine("Произведение цифр больше 5: {0}", proizDigits)
 
-         let minDigit = operation_on_digits_numbers_with_condition (number) (min_function) (9) (fun x -> x > 2)
+         let minDigit = WorkWithDigits.operation_on_digits_numbers_with_condition (number) (min_function) (9) (fun x -> x > 2)
          System.Console.WriteLine("Минимальная цифра больше 2: {0}", minDigit)
 
 
@@ -88,25 +61,26 @@ let eulerNumber n =
 
          let n = 10
 
-         let sumCoprimes = obhodProstComp (n) (sum_function) 0
+         let sumCoprimes =WorkWithDigits.obhodProstComp (n) (sum_function) 0
          Console.WriteLine("Сумма взаимно простых чисел: {0}", sumCoprimes)
 
-         let productCoprimes = obhodProstComp (n) (proiz_function) 1
+         let productCoprimes = WorkWithDigits.obhodProstComp (n) (proiz_function) 1
          Console.WriteLine("Произведение взаимно простых чисел: {0}", productCoprimes)
 
-         let minCoprime = obhodProstComp (n) (min_function) (n)
+         let minCoprime = WorkWithDigits.obhodProstComp (n) (min_function) (n)
          Console.WriteLine("Минимум среди взаимно простых чисел: {0}", minCoprime)
 
 
-         let NumbEuler = eulerNumber (n)
+         let NumbEuler = WorkWithDigits.eulerNumber (n)
          Console.WriteLine("Число Эйлера: {0}", NumbEuler)
 
 
-         let sum = obhodProstCompWithCondition (n) (sum_function) (0) (fun x -> x > 5)
+         let sum = WorkWithDigits.obhodProstCompWithCondition (n) (sum_function) (0) (fun x -> x > 5)
          Console.WriteLine("Сумма взаимно простых чисел с {0}, которые больше 5: {1}", n, sum)
 
-         let proiz = obhodProstCompWithCondition (n) (proiz_function) (1) (fun x -> x % 2 = 1)
+         let proiz = WorkWithDigits.obhodProstCompWithCondition (n) (proiz_function) (1) (fun x -> x % 2 = 1)
          Console.WriteLine("Произведение чётных взаимно простых чисел с {0}: {1}", n, proiz)
+
 
          let sumPrimes = WorkWithDigits.sumPrimeDivisors n
          Console.WriteLine("Сумма простых делителей числа {0}: {1}", n, sumPrimes)
