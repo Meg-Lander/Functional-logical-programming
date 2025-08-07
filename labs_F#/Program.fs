@@ -3,6 +3,21 @@
     | "f#" | "prolog" -> "Ты подлиза!"
     | _ -> "Неплохой выбор, но F# и Prolog лучше!"
 
+
+let getFunctionByNumber = function
+    | 1 -> WorkWithDigits.sumPrimeDivisors
+    | 2 -> WorkWithDigits.countOddDigitsGreaterThanThree
+    | 3 -> WorkWithDigits.productDivisorsWithSmallerDigitSum
+    | _ -> failwith "Неверный номер функции"
+
+let WithCurrying (funcNumber, arg) =
+    let selectedFunction = getFunctionByNumber funcNumber
+    selectedFunction arg
+
+let WithSuperpos (funcNumber, arg) =
+    (getFunctionByNumber >> (fun f -> f arg)) funcNumber
+
+
 [<EntryPoint>]
      let main argv =
          let number = 12345
@@ -90,6 +105,19 @@
 
          let prodDiv = WorkWithDigits.productDivisorsWithSmallerDigitSum n
          Console.WriteLine("Произведение делителей с меньшей суммой цифр: {0}", prodDiv)
+
+         Console.WriteLine("Введите кортеж (номер функции, аргумент), например: 2,1234")
+         let input = Console.ReadLine()
+         let parsedInput = input.Split(',') |> Array.map int
+         let funcNumber = parsedInput.[0]
+         let arg = parsedInput.[1]
+
+         let resultCurrying = WithCurrying (funcNumber, arg)
+         Console.WriteLine("Результат (каррирование): {0}", resultCurrying)
+
+         let resultSuperpos = WithSuperpos (funcNumber, arg)
+         Console.WriteLine("Результат (суперпозиция): {0}", resultSuperpos)
+
 
 
          0

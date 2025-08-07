@@ -103,6 +103,8 @@ module WorkWithDigits
                 | false -> loop (i + 1) acc
         loop 1 1
 
+
+
     let rec nod a b =
         if b = 0 then a
         else nod b (a % b)
