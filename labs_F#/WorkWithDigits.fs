@@ -86,3 +86,21 @@ module WorkWithDigits
             | (1, true) -> count rest (acc + 1)
             | _ -> count rest acc
     count number 0
+
+    let productDivisorsWithSmallerDigitSum number =
+        let targetSum = sum_digits_top number
+
+        let rec loop i acc =
+            match i > number with
+            | true -> acc
+            | false ->
+                match number % i = 0 with
+                | true ->
+                    let digitSum = sum_digits_top i
+                    match digitSum < targetSum with
+                    | true -> loop (i + 1) (acc * i)
+                    | false -> loop (i + 1) acc
+                | false -> loop (i + 1) acc
+        loop 1 1
+
+

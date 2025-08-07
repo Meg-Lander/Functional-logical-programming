@@ -114,6 +114,8 @@ let eulerNumber n =
          let countOddDigits = WorkWithDigits.countOddDigitsGreaterThanThree number
          Console.WriteLine("Количество нечётных цифр > 3: {0}", countOddDigits)
 
+         let prodDiv = WorkWithDigits.productDivisorsWithSmallerDigitSum n
+         Console.WriteLine("Произведение делителей с меньшей суммой цифр: {0}", prodDiv)
 
 
          0
