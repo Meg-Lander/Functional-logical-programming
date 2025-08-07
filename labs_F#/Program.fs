@@ -3,6 +3,20 @@
     | "f#" | "prolog" -> "Ты подлиза!"
     | _ -> "Неплохой выбор, но F# и Prolog лучше!"
 
+let rec nod a b =
+    if b = 0 then a
+    else nod b (a % b)
+
+let obhodProstComp number operation initial =
+    let rec oper num acc =
+        if num >= number then acc
+        else
+            if nod num number = 1 then
+                oper (num + 1) (operation acc num)
+            else
+                oper (num + 1) acc
+    oper 1 initial
+
 [<EntryPoint>]
      let main argv =
          let number = 12345
@@ -53,10 +67,21 @@
          Console.ReadLine() |> respondToLanguage |> Console.WriteLine
 
 
-        let getResponse = respondToLanguage 
-        Console.WriteLine("Какой твой любимый язык программирования?")
-        let userLanguage = Console.ReadLine()
-        let response = getResponse(userLanguage)
-        Console.WriteLine(response)
+         let getResponse = respondToLanguage 
+         Console.WriteLine("Какой твой любимый язык программирования?")
+         let userLanguage = Console.ReadLine()
+         let response = getResponse(userLanguage)
+         Console.WriteLine(response)
+
+         let n = 10
+
+         let sumCoprimes = obhodProstComp (n) (sum_function) 0
+         Console.WriteLine("Сумма взаимно простых чисел: {0}", sumCoprimes)
+
+         let productCoprimes = obhodProstComp (n) (proiz_function) 1
+         Console.WriteLine("Произведение взаимно простых чисел: {0}", productCoprimes)
+
+         let minCoprime = obhodProstComp (n) (min_function) (n)
+         Console.WriteLine("Минимум среди взаимно простых чисел: {0}", minCoprime)
 
          0
