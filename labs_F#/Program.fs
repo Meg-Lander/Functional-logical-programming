@@ -98,14 +98,18 @@ let eulerNumber n =
          Console.WriteLine("Минимум среди взаимно простых чисел: {0}", minCoprime)
 
 
-         let NumbEuler = eulerNumber n
+         let NumbEuler = eulerNumber (n)
          Console.WriteLine("Число Эйлера: {0}", NumbEuler)
 
 
-         let sum = obhodProstCompWithCondition n (sum_function) 0 (fun x -> x > 5)
+         let sum = obhodProstCompWithCondition (n) (sum_function) (0) (fun x -> x > 5)
          Console.WriteLine("Сумма взаимно простых чисел с {0}, которые больше 5: {1}", n, sum)
 
-         let proiz = obhodProstCompWithCondition n (proiz_function) 1 (fun x -> x % 2 = 1)
+         let proiz = obhodProstCompWithCondition (n) (proiz_function) (1) (fun x -> x % 2 = 1)
          Console.WriteLine("Произведение чётных взаимно простых чисел с {0}: {1}", n, proiz)
+
+         let sumPrimes = WorkWithDigits.sumPrimeDivisors n
+         Console.WriteLine("Сумма простых делителей числа {0}: {1}", n, sumPrimes)
+
 
          0

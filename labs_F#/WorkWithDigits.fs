@@ -53,4 +53,24 @@ module WorkWithDigits
                 oper (num / 10) newAcc
         oper number accum
          
-    
+    let isPrime n =
+        let rec check i =
+            match i * i > n with
+            | true -> true
+            | false ->
+                match n % i = 0 with
+                | true -> false
+                | false -> check (i + 1)
+        match n < 2 with
+        | true -> false
+        | false -> check 2
+
+    let sumPrimeDivisors number =
+        let rec loop i acc =
+            match i > number with
+            | true -> acc
+            | false ->
+                match (number % i = 0, isPrime i) with
+                | (true, true) -> loop (i + 1) (acc + i)
+                | _ -> loop (i + 1) acc
+        loop 1 0
