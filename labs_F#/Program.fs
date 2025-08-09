@@ -136,4 +136,7 @@ let WithSuperpos (funcNumber, arg) =
         
          Console.WriteLine("Сумма чётных элементов:{0} \n Количество нечётных элементов:{1} \n Минималный элемент:{2}", sum, count, min)
 
+         let mostCountElemList = mostCount [1; 1; 2; 3; 4; 5; 2; 2; 2]
+         Console.WriteLine("Самый часто встречающийся элемент: {0}", mostCountElemList)
+
          0

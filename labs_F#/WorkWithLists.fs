@@ -29,7 +29,7 @@ let printList list =
     
     printHeadList list
 
-let filteredFold (list : int list) (f : int -> int -> int) (p : int -> bool) (acc : int) : int =
+let filteredFold list (f : int -> int -> int) (p : int -> bool) (acc : int) =
     let rec loop lst currentAcc =
         match lst with
         | [] -> currentAcc
@@ -49,3 +49,23 @@ let countOddList list =
 
 let minList list =
     filteredFold list min (fun a -> true) 10
+
+let mostCount list =
+    let rec processTail list dict maxElem maxCount =
+        match list with
+        | [] -> maxElem
+        | head::tail ->
+            let currentCount = 
+                match Map.tryFind head dict with
+                | Some cnt -> cnt + 1
+                | None -> 1
+            let newDict = Map.add head currentCount dict
+            let newMaxElem, newMaxCount =
+                match currentCount > maxCount with
+                | true -> head, currentCount
+                | false -> maxElem, maxCount
+            processTail tail newDict newMaxElem newMaxCount
+    
+    match list with
+    | [] -> failwith "Список пуст!"
+    | head::tail -> processTail tail (Map.add head 1 Map.empty) head 1
