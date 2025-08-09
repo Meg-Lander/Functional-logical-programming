@@ -108,3 +108,6 @@ let combineLists (listA) (listB) (listC) =
             | c -> c)
     
     List.zip3 sortedA sortedB sortedC
+
+let sortOnLength (listString) =
+    List.sortBy(fun x -> String.length(x)) listString

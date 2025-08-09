@@ -151,4 +151,7 @@ let WithSuperpos (funcNumber, arg) =
         
          Console.WriteLine("Результат работы функции: {0}", combineLists (list1) (list2) (list3))
 
+         let listStr = ["adc"; "adsf"; "a"]
+         Console.WriteLine("Сортированный список из строк по длине: {0}", sortOnLength (listStr))
+
          0
