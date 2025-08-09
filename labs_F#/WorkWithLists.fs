@@ -28,3 +28,24 @@ let printList list =
             printHeadList tail
     
     printHeadList list
+
+let filteredFold (list : int list) (f : int -> int -> int) (p : int -> bool) (acc : int) : int =
+    let rec loop lst currentAcc =
+        match lst with
+        | [] -> currentAcc
+        | head :: tail ->
+            let newAcc =
+                match p head with
+                | true -> f currentAcc head
+                | false -> currentAcc
+            loop tail newAcc
+    loop list acc
+
+let sumEvenList list =
+    filteredFold list (+) (fun a -> a % 2 = 0) 0
+
+let countOddList list =
+    filteredFold list (fun a _ -> a + 1) (fun a -> a % 2 <> 0) 0
+
+let minList list =
+    filteredFold list min (fun a -> true) 10

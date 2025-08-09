@@ -127,5 +127,13 @@ let WithSuperpos (funcNumber, arg) =
          let result = readList n
          Console.WriteLine("Полученный список: {0}", result)
 
+         let List = [1..5]
+         printList List
+
+         let sum = sumEvenList list
+         let count = countOddList list
+         let min = minList list
+        
+         Console.WriteLine("Сумма чётных элементов:{0} \n Количество нечётных элементов:{1} \n Минималный элемент:{2}", sum, count, min)
 
          0
