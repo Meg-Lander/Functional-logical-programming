@@ -80,3 +80,31 @@ let countSquareElements (list: int list) =
     let squares = list |> List.map (fun x -> x * x)
     list |> List.filter (fun x -> List.contains x squares) |> List.length 
 
+let sumOfDigits n =
+    let rec loop num acc =
+        match num with
+        | 0 -> acc
+        | _ -> loop (num / 10) (acc + num % 10)
+    loop (abs n) 0
+
+let countDivisors n =
+    match n with
+    | 0 -> 0
+    | _ ->
+        [1..n] |> List.filter (fun x -> n % x = 0) |> List.length
+
+let combineLists (listA) (listB) (listC) =
+    let sortedA = listA |> List.sortDescending
+    
+    let sortedB = 
+        listB 
+        |> List.sortBy sumOfDigits
+    
+    let sortedC = 
+        listC 
+        |> List.sortWith (fun x y ->
+            match compare (countDivisors y) (countDivisors x) with
+            | 0 -> compare (abs y) (abs x)
+            | c -> c)
+    
+    List.zip3 sortedA sortedB sortedC

@@ -145,5 +145,10 @@ let WithSuperpos (funcNumber, arg) =
          let countSquareEl = countSquareElements [1; 2; 3; 4; 5]
          Console.WriteLine("Число элементов, которые могут быть квадратом какого-то из элементов списка: {0}", countSquareEl)
 
+         let list1 = [5; 10; 15]
+         let list2 = [123; 45; 9]
+         let list3 = [12; 7; 24] 
+        
+         Console.WriteLine("Результат работы функции: {0}", combineLists (list1) (list2) (list3))
 
          0
