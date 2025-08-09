@@ -75,3 +75,8 @@ let mostCountList list =
     | [] -> failwith "Список пуст"
     | _ ->
         list |> List.countBy id  |> List.maxBy snd |> fst
+
+let countSquareElements (list: int list) =
+    let squares = list |> List.map (fun x -> x * x)
+    list |> List.filter (fun x -> List.contains x squares) |> List.length 
+

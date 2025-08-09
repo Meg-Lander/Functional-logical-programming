@@ -142,5 +142,8 @@ let WithSuperpos (funcNumber, arg) =
          let mostCountElemListWithListFunc = mostCountList [1; 1; 2; 3; 4; 5; 2; 2; 2]
          Console.WriteLine("Самый часто встречающийся элемент: {0}", mostCountElemListWithListFunc)
 
+         let countSquareEl = countSquareElements [1; 2; 3; 4; 5]
+         Console.WriteLine("Число элементов, которые могут быть квадратом какого-то из элементов списка: {0}", countSquareEl)
+
 
          0
