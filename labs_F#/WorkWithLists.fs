@@ -69,3 +69,9 @@ let mostCount list =
     match list with
     | [] -> failwith "Список пуст!"
     | head::tail -> processTail tail (Map.add head 1 Map.empty) head 1
+
+let mostCountList list =
+    match list with
+    | [] -> failwith "Список пуст"
+    | _ ->
+        list |> List.countBy id  |> List.maxBy snd |> fst

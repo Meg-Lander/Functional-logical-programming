@@ -139,4 +139,8 @@ let WithSuperpos (funcNumber, arg) =
          let mostCountElemList = mostCount [1; 1; 2; 3; 4; 5; 2; 2; 2]
          Console.WriteLine("Самый часто встречающийся элемент: {0}", mostCountElemList)
 
+         let mostCountElemListWithListFunc = mostCountList [1; 1; 2; 3; 4; 5; 2; 2; 2]
+         Console.WriteLine("Самый часто встречающийся элемент: {0}", mostCountElemListWithListFunc)
+
+
          0
