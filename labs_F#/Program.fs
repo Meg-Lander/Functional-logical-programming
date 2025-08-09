@@ -1,4 +1,7 @@
-﻿let respondToLanguage (language: string) =
+﻿open WorkWithLists
+
+
+let respondToLanguage (language: string) =
     match language.ToLower() with
     | "f#" | "prolog" -> "Ты подлиза!"
     | _ -> "Неплохой выбор, но F# и Prolog лучше!"
@@ -118,6 +121,11 @@ let WithSuperpos (funcNumber, arg) =
          let resultSuperpos = WithSuperpos (funcNumber, arg)
          Console.WriteLine("Результат (суперпозиция): {0}", resultSuperpos)
 
+
+         Console.WriteLine("Введите количество элементов: ")
+         let n = Console.ReadLine() |> int
+         let result = readList n
+         Console.WriteLine("Полученный список: {0}", result)
 
 
          0

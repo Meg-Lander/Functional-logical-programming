@@ -17,3 +17,14 @@ let readList n =
         | x when x > 0 -> readNumbers n []
         | x when x < 0 -> failwith "Количество элементов не может быть отрицательным"
         | 0 -> []
+
+
+let printList list =
+    let rec printHeadList remaining =
+        match remaining with
+        | [] -> ()
+        | head :: tail ->
+            printfn "%A" head  
+            printHeadList tail
+    
+    printHeadList list
