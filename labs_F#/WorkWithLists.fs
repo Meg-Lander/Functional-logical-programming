@@ -262,3 +262,61 @@ let belowAverageList list =
     | _ ->
         let avg = List.averageBy float list
         list |> List.filter (fun x -> float x < avg)
+
+let primeFactorsRecursion n =
+    let rec isPrime num div =
+        match div * div > num with
+        | true -> true
+        | false -> 
+            match num % div with
+            | 0 -> false
+            | _ -> isPrime num (div + 1)
+
+    let rec factorize num p acc =
+        match num with
+        | 1 -> acc
+        | _ ->
+            match num % p with
+            | 0 -> 
+                match isPrime p 2 with
+                | true -> factorize (num / p) p (p :: acc)
+                | false -> factorize num (p + 1) acc
+            | _ -> factorize num (p + 1) acc
+
+    match n < 2 with
+    | true -> []
+    | false ->
+        let factors = factorize n 2 []
+        let rec sort lst =
+            match lst with
+            | [] -> []
+            | head::tail -> 
+                let left = sort (List.filter (fun x -> x < head) tail)
+                let right = sort (List.filter (fun x -> x >= head) tail)
+                left @ [head] @ right
+        sort factors
+
+let primeFactorsList n =
+    let isPrime num =
+        match { 2 .. int(sqrt(float num)) }
+              |> Seq.tryFind (fun x -> num % x = 0) with
+        | Some _ -> false
+        | None -> true
+
+    let rec getFactors num p =
+        match num % p with
+        | 0 -> p :: getFactors (num/p) p
+        | _ -> []
+
+    match n < 2 with
+    | true -> []
+    | false ->
+        [2..n] |> List.filter isPrime |> List.collect (getFactors n) |> List.sort
+    
+let processList lst =
+    let list1 = lst |> List.filter (fun x -> x % 2 = 0) |> List.map (fun x -> x / 2)
+    let list2 = list1 |> List.filter (fun x -> x % 3 = 0) |> List.map (fun x -> x / 3)
+    let list3 = list2 |> List.map (fun x -> x * x)
+    let list4 = list3 |> List.filter (fun x -> List.contains x list1)
+    let list5 = list2 @ list3 @ list4
+    (list1, list2, list3, list4, list5)

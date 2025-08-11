@@ -174,4 +174,11 @@ let WithSuperpos (funcNumber, arg) =
          Console.WriteLine("Элементы меньше среднего с рекурсией: {0}", belowAverageRecursion list42)
          Console.WriteLine("Элементы меньше среднего с возможностями List: {0}", belowAverageList list42)
 
+         let num = 36
+         printfn "Простые делители 36 с рекурсией: %A" (primeFactorsRecursion num)
+         printfn "Простые делители 36 с возможностями List: %A" (primeFactorsList num)
+
+         let list17 = [2; 4; 6; 9; 12; 15]
+         printfn "Результат: %A" (processList list17)
+
          0
