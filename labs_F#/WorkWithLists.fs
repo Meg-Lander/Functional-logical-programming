@@ -111,3 +111,22 @@ let combineLists (listA) (listB) (listC) =
 
 let sortOnLength (listString) =
     List.sortBy(fun x -> String.length(x)) listString
+
+let findMinIndexRecursion list =
+    let rec loop idx minVal minIdx = function
+        | [] -> minIdx
+        | head::tail ->
+            let newMinVal, newMinIdx = 
+                match head < minVal with
+                | true -> (head, idx)
+                | false -> (minVal, minIdx)
+            loop (idx + 1) newMinVal newMinIdx tail
+    match list with
+    | [] -> -1
+    | head::tail -> loop 0 head 0 tail
+
+let findMinIndex list = 
+    match list with
+    | [] -> 0
+    | _ -> let minVal = List.min list
+           List.findIndex (fun x -> x = minVal) list

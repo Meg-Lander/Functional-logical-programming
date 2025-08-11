@@ -154,4 +154,7 @@ let WithSuperpos (funcNumber, arg) =
          let listStr = ["adc"; "adsf"; "a"]
          Console.WriteLine("Сортированный список из строк по длине: {0}", sortOnLength (listStr))
 
+         Console.WriteLine("Результат нахождения минимума с рекурсией: {0}", findMinIndexRecursion list1)
+         Console.WriteLine("Результат нахождения минимума c возможностями List: {0}", findMinIndex list1)
+
          0
