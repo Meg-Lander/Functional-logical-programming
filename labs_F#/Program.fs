@@ -181,4 +181,11 @@ let WithSuperpos (funcNumber, arg) =
          let list17 = [2; 4; 6; 9; 12; 15]
          printfn "Результат: %A" (processList list17)
 
+         let arrayA = [|1; 2; 3|]
+         let arrayB = [|4; 5; 7|]
+        
+         let newArrayA = copyLastElement arrayA arrayB
+         Console.WriteLine( "Исходный массив A: %A", arrayA)
+         Console.WriteLine( "Новый массив A: %A", newArrayA)
+
          0

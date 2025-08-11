@@ -320,3 +320,6 @@ let processList lst =
     let list4 = list3 |> List.filter (fun x -> List.contains x list1)
     let list5 = list2 @ list3 @ list4
     (list1, list2, list3, list4, list5)
+
+let copyLastElement arrA arrB =
+    Array.append arrA [|Array.last arrB|]
