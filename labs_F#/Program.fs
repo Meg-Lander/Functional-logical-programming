@@ -162,4 +162,12 @@ let WithSuperpos (funcNumber, arg) =
          Console.WriteLine("Разворот между min max с рекурсией: {0}",  reverseBetweenMinMaxRecursion list12)
          Console.WriteLine("Разворот межу min max c возможностями List: {0}",  reverseBetweenMinMaxList list12)
 
+         let list13 = [3; 1; 2; 1; 3; 3; 1]
+         Console.WriteLine("Количество минимальных между 1 и 5 индексом с рекурсией: {0}",  countMinInRangeRecursion 2 5 list13)
+         Console.WriteLine("Количество минимальных между 1 и 5 индексом с возможностями List: {0}",  countMinInRangeRecursion 1 5 list13)
+
+         let list32 = [1; 3; 2; 4; 1; 5; 2]
+         Console.WriteLine("Количество локальных максимумов с рекурсией: {0}", countLocalMaxRecursion list32)
+         Console.WriteLine("Количество локальных максимумов с возможностями List: {0}", countLocalMaxList list32)
+
          0

@@ -195,3 +195,44 @@ let reverseBetweenMinMaxRecursion list =
         let middle, after = splitList (endIndex-startIndex-1) [] rest
 
         reverseSection before middle after
+
+let countMinInRangeRecursion a b list =
+    let rec findMin current = function
+        | [] -> current
+        | head::tail when head < current -> findMin head tail
+        | _::tail -> findMin current tail
+
+    let rec loop idx cnt minVal = function
+        | [] -> cnt
+        | head::tail ->
+            let inRange = idx >= a && idx <= b
+            let isMin = head = minVal
+            match inRange, isMin with
+            | true, true -> loop (idx + 1) (cnt + 1) minVal tail
+            | _, _       -> loop (idx + 1) cnt minVal tail
+
+    match list with
+    | [] -> 0
+    | _ -> loop 0 0 (findMin System.Int32.MaxValue list) list
+
+let countMinInRangeList a b list =
+    match list with
+    | [] -> 0
+    | _ ->
+        let minVal = List.min list
+        list |> List.skip a |> List.take (b - a + 1) |> List.filter (fun x -> x = minVal) |> List.length
+
+let countLocalMaxRecursion list =
+    let rec loop prev curr = function
+        | [] -> 0
+        | next::tail when curr > prev && curr > next -> 1 + loop curr next tail
+        | next::tail -> loop curr next tail
+    
+    match list with
+    | x::y::tail -> loop x y tail
+    | _ -> 0
+
+let countLocalMaxList list =
+    list |> List.windowed 3 |> List.filter (function
+        | [a; b; c] -> b > a && b > c
+        | _ -> false) |> List.length
