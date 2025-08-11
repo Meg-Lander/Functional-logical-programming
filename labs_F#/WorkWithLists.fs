@@ -337,3 +337,12 @@ let isLowercaseSorted (str: string) =
     match str with
     | null | "" -> true
     | _ -> checkOrder 1 (Char.ToLower str.[0])
+
+let sortStringsByAsciiAverage (strings: string list) =
+    let calculateAverageAscii (s: string) =
+        match s with
+        | null -> 0.
+        | "" -> 0.
+        | _ -> s |> Seq.averageBy (fun c -> float c)
+
+    strings |> List.sortBy calculateAverageAscii

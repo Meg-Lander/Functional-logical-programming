@@ -193,4 +193,10 @@ let WithSuperpos (funcNumber, arg) =
          Console.WriteLine("'aDc': {0}", isLowercaseSorted "aDc")
          Console.WriteLine("'cba': {0}", isLowercaseSorted "cba")
 
+         let strings = ["hello"; "world"; "abc"; "123"; "!@#"]
+         let sorted = sortStringsByAsciiAverage strings
+        
+         Console.WriteLine("Исходный список строк: {0}", strings)
+         Console.WriteLine("Отсортированный список: {0}", sorted)
+
          0
