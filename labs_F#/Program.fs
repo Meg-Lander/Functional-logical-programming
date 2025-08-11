@@ -157,4 +157,9 @@ let WithSuperpos (funcNumber, arg) =
          Console.WriteLine("Результат нахождения минимума с рекурсией: {0}", findMinIndexRecursion list1)
          Console.WriteLine("Результат нахождения минимума c возможностями List: {0}", findMinIndex list1)
 
+
+         let list12 = [3; 1; 2; 3; 5]
+         Console.WriteLine("Разворот между min max с рекурсией: {0}",  reverseBetweenMinMaxRecursion list12)
+         Console.WriteLine("Разворот межу min max c возможностями List: {0}",  reverseBetweenMinMaxList list12)
+
          0

@@ -130,3 +130,68 @@ let findMinIndex list =
     | [] -> 0
     | _ -> let minVal = List.min list
            List.findIndex (fun x -> x = minVal) list
+
+let reverseBetweenMinMaxList list =
+    match list with
+    | [] | [_] -> list
+    | _ ->
+        let minVal = List.min list
+        let maxVal = List.max list
+        let minIdx = List.findIndex (fun x -> x = minVal) list
+        let maxIdx = List.findIndex (fun x -> x = maxVal) list
+        
+        let startIdx, endIdx = 
+            match minIdx < maxIdx with 
+            | true -> minIdx, maxIdx 
+            | false -> maxIdx, minIdx
+
+        let startList = 
+            match startIdx with
+            | 0 -> []
+            | _ -> list.[0..startIdx]
+        
+        let midList = 
+            match endIdx - startIdx - 1 with
+            | x when x <= 0 -> []
+            | _ -> list.[startIdx+1..endIdx-1] |> List.rev
+        
+        let endList = 
+            match endIdx with
+            | x when x >= List.length list - 1 -> []
+            | _ -> list.[endIdx..List.length list - 1]
+        
+        List.concat [startList; midList; endList]
+
+let reverseBetweenMinMaxRecursion list =
+    let rec findExtremumIndex compareFn index currentVal currentIndex = function
+        | [] -> currentIndex
+        | head::tail ->
+            match compareFn head currentVal with
+            | true -> findExtremumIndex compareFn (index+1) head index tail
+            | false -> findExtremumIndex compareFn (index+1) currentVal currentIndex tail
+
+    match list with
+    | [] | [_] -> list
+    | head::_ ->
+        let minIndex = findExtremumIndex (<) 0 head 0 list
+        let maxIndex = findExtremumIndex (>) 0 head 0 list  
+        
+        let startIndex, endIndex = 
+            match minIndex < maxIndex with 
+            | true -> minIndex, maxIndex 
+            | false -> maxIndex, minIndex
+
+        let rec reverseSection before middle after =
+            match middle with
+            | [] -> before @ after
+            | head::tail -> reverseSection before tail (head::after)
+
+        let rec splitList count acc = function
+            | [] -> (List.rev acc, [])
+            | tail when count = 0 -> (List.rev acc, tail)
+            | head::tail -> splitList (count-1) (head::acc) tail
+
+        let before, rest = splitList (startIndex+1) [] list
+        let middle, after = splitList (endIndex-startIndex-1) [] rest
+
+        reverseSection before middle after
