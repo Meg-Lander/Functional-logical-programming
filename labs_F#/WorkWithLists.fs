@@ -323,3 +323,17 @@ let processList lst =
 
 let copyLastElement arrA arrB =
     Array.append arrA [|Array.last arrB|]
+
+let isLowercaseSorted (str: string) =
+    let rec checkOrder i prev =
+        match i >= str.Length with
+        | true -> true
+        | false ->
+            let current = Char.ToLower str.[i]
+            match current >= prev with
+            | true -> checkOrder (i + 1) current
+            | false -> false
+
+    match str with
+    | null | "" -> true
+    | _ -> checkOrder 1 (Char.ToLower str.[0])

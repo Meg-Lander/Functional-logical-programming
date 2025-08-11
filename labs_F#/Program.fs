@@ -1,4 +1,5 @@
 ﻿open WorkWithLists
+open System
 
 
 let respondToLanguage (language: string) =
@@ -187,5 +188,9 @@ let WithSuperpos (funcNumber, arg) =
          let newArrayA = copyLastElement arrayA arrayB
          Console.WriteLine( "Исходный массив A: %A", arrayA)
          Console.WriteLine( "Новый массив A: %A", newArrayA)
+
+         Console.WriteLine("'abc': {0}", isLowercaseSorted "abc")
+         Console.WriteLine("'aDc': {0}", isLowercaseSorted "aDc")
+         Console.WriteLine("'cba': {0}", isLowercaseSorted "cba")
 
          0
