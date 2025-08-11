@@ -170,4 +170,8 @@ let WithSuperpos (funcNumber, arg) =
          Console.WriteLine("Количество локальных максимумов с рекурсией: {0}", countLocalMaxRecursion list32)
          Console.WriteLine("Количество локальных максимумов с возможностями List: {0}", countLocalMaxList list32)
 
+         let list42 = [10; 5; 8; 3; 12; 7]
+         Console.WriteLine("Элементы меньше среднего с рекурсией: {0}", belowAverageRecursion list42)
+         Console.WriteLine("Элементы меньше среднего с возможностями List: {0}", belowAverageList list42)
+
          0

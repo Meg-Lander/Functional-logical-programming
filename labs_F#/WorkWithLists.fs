@@ -236,3 +236,29 @@ let countLocalMaxList list =
     list |> List.windowed 3 |> List.filter (function
         | [a; b; c] -> b > a && b > c
         | _ -> false) |> List.length
+
+let belowAverageRecursion list =
+    let rec calculateSumAndCount sum count = function
+        | [] -> (sum, count)
+        | head::tail -> calculateSumAndCount (sum + head) (count + 1) tail
+
+    let rec filterBelow avg acc = function
+        | [] -> acc 
+        | head::tail ->
+            if float head < avg 
+            then filterBelow avg (head::acc) tail
+            else filterBelow avg acc tail
+
+    match list with
+    | [] -> []
+    | _ ->
+        let sum, count = calculateSumAndCount 0 0 list
+        let avg = float sum / float count
+        filterBelow avg [] list
+
+let belowAverageList list =
+    match list with
+    | [] -> []
+    | _ ->
+        let avg = List.averageBy float list
+        list |> List.filter (fun x -> float x < avg)
