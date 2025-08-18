@@ -1,17 +1,17 @@
-module WorkWithDigits
+﻿module WorkWithDigits
     let sum_digits_top number =
-        let rec sum_digit_tail number cur_sum =
-            match number with
-            | 0 -> cur_sum
-            | _ -> sum_digit_tail (number / 10) (cur_sum + (number % 10))
-        sum_digit_tail number 0
-
-    let sum_digits_down number =
         let rec sum_digit number =
             match number with
             | 0 -> 0
             | _ -> (number % 10) + sum_digit (number / 10)
         sum_digit number
+
+    let sum_digits_down number =
+        let rec sum_digit_tail number cur_sum =
+            match number with
+            | 0 -> cur_sum
+            | _ -> sum_digit_tail (number / 10) (cur_sum + (number % 10))
+        sum_digit_tail number 0
 
     let factorial_top number =
         let rec factorial number =
@@ -32,14 +32,14 @@ module WorkWithDigits
         | true -> sum_digits_top
         | false -> factorial_top
 
-    let operation_on_digits_numbers_func number operation initialValue =
+    let operation_on_digits_numbers number operation initialValue =
         let rec oper num acc =
             match num with
             | 0 -> acc
             | _ -> oper (num / 10) (operation acc (num % 10))
         oper number initialValue
 
-    let operation_on_digits_numbers_with_condition_func number operation accum condition =
+    let operation_on_digits_numbers_with_condition number operation accum condition =
         let rec oper num acc =
             match num with
             | 0 -> acc
@@ -63,7 +63,7 @@ module WorkWithDigits
                     | false -> check (i + 1)
         check 2
 
-    let sumPrimeDivisors_func number =
+    let sumPrimeDivisors number =
         let rec loop i acc =
             match i with
             | _ when i > number -> acc
@@ -98,11 +98,6 @@ module WorkWithDigits
         | 0 -> a
         | _ -> nod b (a % b)
 
-    let rec nod a b =
-    match b with
-    | 0 -> a
-    | _ -> nod b (a % b)
-
     let obhodProstComp number operation initial =
         let rec oper num acc =
             match num >= number with
@@ -125,5 +120,4 @@ module WorkWithDigits
 
     let eulerNumber n =
         obhodProstComp n (fun acc _ -> acc + 1) 0
-
 
